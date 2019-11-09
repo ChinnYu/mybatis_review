@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入properties-->
+    <properties resource="db.properties"/>
+    <!--設置我們的別名-->
+    <typeAliases>
+        <!--<typeAlias type="com.cyl.entity.Log" alias="log"/>-->
+        <!--<typeAlias type="com.cyl.entity.User" alias="user"/>-->
+        <package name="com.cyl.entity"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${Mysql.driver}"/>
+                <property name="url" value="${Mysql.url}"/>
+                <property name="username" value="${Mysql.username}"/>
+                <property name="password" value="${Mysql.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/cyl/mapper/LogMapper.xml"/>
+        <mapper resource="com/cyl/mapper/UserMapper.xml"/>
+        <mapper resource="com/cyl/mapper/OrderMapper.xml"/>
+        <mapper resource="com/cyl/mapper/PhoneMapper.xml"/>
+    </mappers>
+
+</configuration>

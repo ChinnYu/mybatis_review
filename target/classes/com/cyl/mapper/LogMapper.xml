@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyl.mapper.LogMapper">
+    <select id="selectLog" resultType="com.cyl.entity.Log">
+        select id,content,create_time as createTime,flag from t_log where id = #{id}
+    </select>
+    <insert id="insertLog" parameterType="com.cyl.entity.Log">
+        insert into t_log(content,create_time) values (#{content},#{createTime})
+    </insert>
+
+    <delete id="delById" parameterType="int">
+        delete from t_log where id=#{id}
+    </delete>
+    
+    <update id="updateLog" parameterType="com.cyl.entity.Log">
+        update t_log set content=#{content},create_time=#{createTime} where id = #{id}
+    </update>
+    
+    <select id="list" resultType="log">
+        select id,content,create_time as createTime,flag from t_log
+    </select>
+</mapper>

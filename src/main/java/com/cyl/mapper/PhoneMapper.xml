@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cyl.mapper.PhoneMapper">
+    <select id="getPhoneAndUser" resultType="phone">
+        select p.`id`,p.`brand`,u.`id` "user.id",u.`username` "user.username" from t_phone p inner join t_user u on p.`user_id`=u.`id` where p.`id`=#{id}
+    </select>
+
+    <!--使用ResultMap的方式-->
+    <resultMap id="phoneUserMap" type="phone">
+        <id column="id" property="id"/>
+        <result column="brand" property="brand"/>
+        <result column="price" property="price"/>
+        <!--配置關聯的訊息-->
+        <result column="user_id" property="user.id"/>
+        <result column="username" property="user.username"/>
+    </resultMap>
+
+    <select id="getPhoneAndUser2" resultMap="phoneUserMap4">
+        select p.`id`,p.`brand`,u.`id` user_id,u.`username`  from t_phone p inner join t_user u on p.`user_id`=u.`id` where p.`id`=#{id}
+    </select>
+
+    <!--採用繼承方式-->
+    <resultMap id="phoneMap" type="phone">
+        <id column="id" property="id"/>
+        <result column="brand" property="brand"/>
+        <result column="price" property="price"/>
+    </resultMap>
+
+    <resultMap id="phoneUserMap2" type="phone" extends="phoneMap">
+        <!--配置關聯的信息-->
+        <result column="user_id" property="user.id"/>
+        <result column="username" property="user.username"/>
+    </resultMap>
+
+    <!--<resultMap id="userMap" type="user">-->
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="username" property="username"/>-->
+    <!--</resultMap>-->
+
+    <!--採用assocation的方式-->
+    <resultMap id="phoneUserMap3" type="phone" extends="phoneMap">
+        <!--配置關聯的信息-->
+        <association property="user" javaType="com.cyl.entity.User">
+            <id column="id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="phoneUserMap4" type="phone" extends="phoneMap">
+        <!--配置關聯的信息-->
+        <association property="user" javaType="com.cyl.entity.User" resultMap="com.cyl.mapper.UserMapper.userMap">
+        </association>
+    </resultMap>
+
+</mapper>
