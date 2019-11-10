@@ -9,6 +9,8 @@ import com.cyl.mapper.OrderMapper;
 import com.cyl.mapper.PhoneMapper;
 import com.cyl.mapper.UserMapper;
 import com.cyl.util.SqlSessionFactoryUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -77,5 +79,19 @@ public class MybatisTest {
         userMapper = sqlSession.getMapper(UserMapper.class);
         User user3 = userMapper.getById(1);
         System.out.println(user3.getUsername());
+    }
+
+    @Test
+    public void pageTest(){
+        SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        //設置分頁
+        PageHelper.startPage(0,1);
+        List<User> list = userMapper.list();
+        PageInfo<User> pageInfo = new PageInfo<User>(list,3);
+        int[] nums = pageInfo.getNavigatepageNums();
+        for (int i : nums){
+            System.out.println(i);
+        }
     }
 }

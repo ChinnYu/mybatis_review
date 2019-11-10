@@ -38,6 +38,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.3.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:4.3.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.3.0.RELEASE" />
+          <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.6.8" />
+          <element id="library" level="project" name="Maven: org.mybatis.caches:mybatis-ehcache:1.0.3" />
         </element>
       </element>
     </root>

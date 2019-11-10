@@ -98,4 +98,8 @@
     <insert id="insert" parameterType="user">
         insert into t_user(username,note,create_time,password) values (#{username},#{note},#{createTime},#{password})
     </insert>
+    
+    <select id="list" resultType="user">
+        select * from t_user
+    </select>
 </mapper>

@@ -19,6 +19,7 @@ public interface UserMapper {
     public User getById(int id);
     public long insert(User user);
 
+    public List<User> list();
 
 
 }

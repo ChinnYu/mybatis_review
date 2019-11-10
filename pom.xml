@@ -136,6 +136,12 @@
             <version>1.0.3</version>
         </dependency>
 
+        <!--mybatis 分頁插件PageHelper-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
