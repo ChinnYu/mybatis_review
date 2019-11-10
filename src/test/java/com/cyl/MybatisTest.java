@@ -31,84 +31,51 @@ public class MybatisTest {
     public void selectByUserNameTest(){
         SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-        user.setUsername("jas");
-        userMapper.selectByUserName(user);
-        sqlSession.commit();
+        System.out.println("1.");
+        User user1 = userMapper.getById(1);
+        user1.setUsername("帥");
+        System.out.println("2.");
+        User user2 = userMapper.getById(1);
+        System.out.println(user1 == user2);
+        System.out.println(user2.getUsername());
         sqlSession.close();
     }
+
 
     @Test
     public void selectByUserNameTest2(){
         SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-        user.setId(1);
-        user.setUsername("jas");
-        List<User> list = userMapper.selectByUserName2(user);
-        sqlSession.commit();
+        System.out.println("1.");
+        User user1 = userMapper.getById(1);
+        user1.setUsername("rr");
+        user1.setPassword("r55r");
+        userMapper.insert(user1);
+        System.out.println("2.");
+        User user2 = userMapper.getById(1);
+        System.out.println(user1 == user2);
+        System.out.println(user2.getUsername());
         sqlSession.close();
     }
 
     @Test
-    public void selectByUserNameTest3(){
+    public void cacheTest2(){
         SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-//        user.setId(1);
-//        user.setUsername("jas");
-        List<User> list = userMapper.selectByUserName3(user);
-        sqlSession.commit();
+        System.out.println("1.");
+        User user1 = userMapper.getById(1);
+        user1.setUsername("rrd");
+//        user1.setPassword("r55r");
+//        userMapper.insert(user1);
+        System.out.println("2.");
+        User user2 = userMapper.getById(1);
+        System.out.println(user1 == user2);
+        System.out.println(user2.getUsername());
         sqlSession.close();
-    }
 
-    @Test
-    public void selectByUserNameTest4(){
-        SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-//        user.setId(1);
-        user.setUsername("jas");
-        List<User> list = userMapper.selectByUserName4(user);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void updateUserTest(){
-        SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = new User();
-//        user.setId(1);
-//        user.setUsername("jasf");
-        user.setId(1);
-        user.setNote("22323232");
-        long res = userMapper.updateUser(user);
-        System.out.println(res);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void delByArrayTest(){
-        SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        int[] arr = {5,6};
-        long res = userMapper.delByArray(arr);
-        System.out.println(res);
-        sqlSession.commit();
-        sqlSession.close();
-    }
-
-    @Test
-    public void delByListTest(){
-        SqlSession sqlSession = SqlSessionFactoryUtils.getSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(3);
-        long res = userMapper.delByList(list);
-        System.out.println(res);
-        sqlSession.commit();
-        sqlSession.close();
+        sqlSession = SqlSessionFactoryUtils.getSqlSession();
+        userMapper = sqlSession.getMapper(UserMapper.class);
+        User user3 = userMapper.getById(1);
+        System.out.println(user3.getUsername());
     }
 }

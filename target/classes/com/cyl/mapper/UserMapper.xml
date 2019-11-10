@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cyl.mapper.UserMapper">
+
+    <!--在需要使用二級緩存的地方配置cache-->
+    <!--<cache eviction="LRU" readOnly="true" size="1024"></cache>-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
     <!--自定義映射結果-->
     <resultMap id="userMap" type="user">
         <!--主鍵-->
@@ -86,4 +90,12 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="getById" resultMap="userMap">
+        select * from t_user where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="user">
+        insert into t_user(username,note,create_time,password) values (#{username},#{note},#{createTime},#{password})
+    </insert>
 </mapper>

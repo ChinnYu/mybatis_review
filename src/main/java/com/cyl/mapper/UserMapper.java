@@ -16,6 +16,8 @@ public interface UserMapper {
     public long updateUser(User user);
     public long delByArray(int[] arr);
     public long delByList(List<Integer> list);
+    public User getById(int id);
+    public long insert(User user);
 
 
 
