@@ -9,11 +9,14 @@ import java.util.Map;
 
 public interface UserMapper {
 
-    public User selectUser(int id);
+    public List<User> selectByUserName(User user);
+    public List<User> selectByUserName2(User user);
+    public List<User> selectByUserName3(User user);
+    public List<User> selectByUserName4(User user);
+    public long updateUser(User user);
+    public long delByArray(int[] arr);
+    public long delByList(List<Integer> list);
 
-    public List<User> listByMap(Map<String,Object> map);
-    public List<User> listByAnnotation (@Param("username") String username, @Param("note") String note);
-    public List<User> listByObject (User user);
-    public long insert (User user);
+
 
 }

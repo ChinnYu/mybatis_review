@@ -13,27 +13,77 @@
         <result column="flag" property="flag"/>
     </resultMap>
 
-    <select id="selectUser" resultType="user">
-        select * from t_user where id = #{id}
+    <select id="selectByUserName" parameterType="user" resultMap="userMap">
+        select * from t_user where 1=1
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
     </select>
 
-    <sql id="user_column">
-        id,username,note,create_time createTime,flag
-    </sql>
-
-    <select id="listByMap" parameterType="map" resultMap="userMap">
-        select <include refid="user_column"></include> from t_user where username like concat('%',#{username},'%') OR note like concat('%',#{note},'%');
+    <select id="selectByUserName2" parameterType="user" resultMap="userMap">
+        select * from t_user where 1=1
+        <choose>
+            <when test="id != null and id != 0">
+                and id = #{id}
+            </when>
+            <when test="username != null and username != ''">
+                and username = #{username}
+            </when>
+        </choose>
     </select>
 
-    <select id="listByAnnotation" resultType="user">
-        select id,username,note,create_time createTime,flag from t_user where username like concat('%',#{username},'%') OR note like concat('%',#{note},'%');
+    <select id="selectByUserName3" parameterType="user" resultMap="userMap">
+        select * from t_user
+        <where>
+            <choose>
+                <when test="id != null and id != 0">
+                    and id = #{id}
+                </when>
+                <when test="username != null and username != ''">
+                    and username = #{username}
+                </when>
+            </choose>
+        </where>
     </select>
 
-    <select id="listByObject" resultType="user" parameterType="user">
-        select id,username,note,create_time createTime,flag from t_user where username like concat('%',#{username},'%') OR note like concat('%',#{note},'%');
+    <select id="selectByUserName4" parameterType="user" resultMap="userMap">
+        select * from t_user
+        <trim prefix="where" prefixOverrides="and">
+            <choose>
+                <when test="id != null and id != 0">
+                    and id = #{id}
+                </when>
+                <when test="username != null and username != ''">
+                    and username = #{username}
+                </when>
+            </choose>
+        </trim>
     </select>
 
-    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into t_user(username,password,note,create_time) values (#{username},#{password},#{note},#{createTime})
-    </insert>
+    <update id="updateUser" parameterType="user">
+        update t_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="note != null and note != ''">
+                note = #{note}
+            </if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <delete id="delByArray">
+        delete from t_user where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="delByList">
+        delete from t_user where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
